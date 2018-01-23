@@ -11,6 +11,7 @@ testTaskCompleted/task.*
 testTaskCompleted/test.html
 testTaskCompleted/fonts
 !testTaskCompleted/fonts/HE_CN___.TTF
+testTaskCompleted/js/script.js
 
 
 
