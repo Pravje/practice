@@ -10,8 +10,9 @@ testTaskCompleted/psd/
 testTaskCompleted/task.*
 testTaskCompleted/test.html
 testTaskCompleted/fonts
+testTaskCompleted/js/
+!testTaskCompleted/js/iscroll.js
 !testTaskCompleted/fonts/HE_CN___.TTF
-testTaskCompleted/js/script.js
 
 
 
