@@ -12,12 +12,11 @@ body {
 .page {
   width: 780px;
   margin: 0 auto; }
-
-.header {
-  display: block; }
-  .header .decorations {
-    display: inherit;
-    background-color: #dbedea; }
+  .page header {
+    display: block; }
+    .page header .decorations {
+      display: inherit;
+      background-color: #dbedea; }
 
 .top {
   height: 6px;
