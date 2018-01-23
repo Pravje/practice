@@ -376,12 +376,4 @@ footer {
           margin-right: -7px;
           width: 115px; }
 
-.testrect {
-  position: absolute;
-  width: 160px;
-  height: 9px;
-  background: deepskyblue;
-  z-index: 3;
-  left: 0; }
-
 /*# sourceMappingURL=style.css.map */
