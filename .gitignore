@@ -6,9 +6,9 @@
 .idea
 out
 gen
-testTaskCompleted/task.*
-testTaskCompleted/test.html
-testTaskCompleted/js/script.js
+/testTaskCompleted/task.*
+/testTaskCompleted/test.html
+/testTaskCompleted/js/script.js
 /testTaskCompleted/fonts/
-!testTaskCompleted/fonts/HE_CN___.TTF
+!/testTaskCompleted/fonts/HE_CN___.TTF
 /testTaskCompleted/psd/
