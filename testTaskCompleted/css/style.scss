@@ -61,7 +61,7 @@ $mid-shadow: #84c3b7+#000;
     background-color: #bfe0d9;
     height: 34px;
   }
-  .fig-container {
+  .figure-container {
     padding: 30px;
     overflow-x: hidden;
   }
@@ -81,7 +81,7 @@ $mid-shadow: #84c3b7+#000;
   }
 }
 
-.fig-container {
+.figure-container {
   position: relative;
   .figure {
     position: absolute;
@@ -97,14 +97,12 @@ $mid-shadow: #84c3b7+#000;
   }
 }
 
-
-
-.opalovZelen {
+.opal-green {
   color: #05614E;
 }
 
 $link-color: #333333;
-.tipalogo {
+.logo {
   box-sizing: border-box;
   padding-top: 8px;
   position: absolute;
@@ -122,11 +120,11 @@ $link-color: #333333;
       font-size: 1.625em; /*26px / 16*/
     ;
       .small {
-        font-size: 1em;
+        font-size: 16px;
       }
     }
   }
-  .slogan {
+  .tagline {
     color: #116957;
     font-size: 0.75em; //12px
   }
@@ -163,7 +161,7 @@ $content-bg: #008469;
         }
       }
     }
-    .fig-container {
+    .figure-container {
       margin-top: -22px;
       margin-bottom: 10px;
       padding-top: 3px;
@@ -223,7 +221,7 @@ $content-bg: #008469;
     margin: 0;
     padding-bottom: 10px;
   }
-  a{
+  a {
     color: white;
   }
 }
@@ -297,6 +295,10 @@ a {
     margin-top: 32px;
     width: 100%;
     font-size: 1em;
+    a{
+      color: $link-color;
+      font-family: Verdana, sans-serif;
+    }
   }
   h2, p {
     font-size: 0.6875em; //11px
@@ -387,7 +389,7 @@ a {
   position: relative;
   background-color: #bfe0d9;
   border-top: 1px solid #7fc1b4;
-  font-family: Verdana,sans-serif;
+  font-family: Verdana, sans-serif;
   height: 28px;
   box-sizing: border-box;
   z-index: 1;
@@ -399,8 +401,9 @@ a {
     z-index: 3;
     margin-top: -7px;
     position: absolute;
+    color: #567280;
   }
-  .decorations{
+  .decorations {
     display: flex;
     position: absolute;
     height: 14px;
@@ -408,27 +411,27 @@ a {
     margin-top: -14px;
     width: 100%;
     overflow: hidden;
-    .rect{
+    .rect {
       background-color: #bfe0d9;
       height: 14px;
       width: 160px;
       z-index: 1;
       border-top: 1px solid #008469;
     }
-    .fig-container{
+    .figure-container {
       float: left;
       flex-grow: 1;
-      .figure{
+      .figure {
         background-color: #bfe0d9;
         height: 13px;
         border-top: 1px solid #7fc1b4;
-        &.aright.left{
+        &.aright.left {
           width: 142px;
           margin-left: -14px;
           border-right: 1px solid #7fc1b4;
 
         }
-        &.aleft.right{
+        &.aleft.right {
           border-left: 1px solid #7fc1b4;
           right: 0;
           margin-right: -7px;

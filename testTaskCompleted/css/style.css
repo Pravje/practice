@@ -45,7 +45,7 @@ body {
     box-shadow: 0px 10px 25px 0px #84c3b7;
     background-color: #bfe0d9;
     height: 34px; }
-  .middle .fig-container {
+  .middle .figure-container {
     padding: 30px;
     overflow-x: hidden; }
   .middle .figure.aleft.left {
@@ -59,22 +59,22 @@ body {
     width: 67px;
     height: 15px; }
 
-.fig-container {
+.figure-container {
   position: relative; }
-  .fig-container .figure {
+  .figure-container .figure {
     position: absolute;
     /*overflow: hidden;*/
     background: #bfe0d9;
     top: 0; }
-    .fig-container .figure.aleft {
+    .figure-container .figure.aleft {
       transform: skew(-45deg); }
-    .fig-container .figure.aright {
+    .figure-container .figure.aright {
       transform: skew(45deg); }
 
-.opalovZelen {
+.opal-green {
   color: #05614E; }
 
-.tipalogo {
+.logo {
   box-sizing: border-box;
   padding-top: 8px;
   position: absolute;
@@ -85,16 +85,16 @@ body {
   background-color: transparent;
   text-align: center;
   font-family: 'HeliosCond', sans-serif; }
-  .tipalogo .site {
+  .logo .site {
     display: block; }
-    .tipalogo .site a {
+    .logo .site a {
       color: #333333;
       text-decoration: none;
       font-size: 1.625em;
       /*26px / 16*/ }
-      .tipalogo .site a .small {
-        font-size: 1em; }
-  .tipalogo .slogan {
+      .logo .site a .small {
+        font-size: 16px; }
+  .logo .tagline {
     color: #116957;
     font-size: 0.75em; }
 
@@ -123,18 +123,19 @@ body {
           top: -2px;
           content: '';
           border-top: 1px dashed #6db8a9; }
-    .content .decorations .fig-container {
+    .content .decorations .figure-container {
       margin-top: -22px;
       margin-bottom: 10px;
       padding-top: 3px;
       width: 100%;
       overflow-x: hidden; }
-      .content .decorations .fig-container .figure.aright.left {
+      .content .decorations .figure-container .figure.aright.left {
         width: 213px;
         left: -5px;
         height: 9px;
-        position: relative; }
-        .content .decorations .fig-container .figure.aright.left::after {
+        position: relative;
+        background: #008469; }
+        .content .decorations .figure-container .figure.aright.left::after {
           content: '';
           position: absolute;
           width: 100%;
@@ -232,6 +233,9 @@ a {
     margin-top: 32px;
     width: 100%;
     font-size: 1em; }
+    .topics h1 a {
+      color: #333333;
+      font-family: Verdana, sans-serif; }
   .topics h2, .topics p {
     font-size: 0.6875em;
     word-wrap: break-word;
@@ -306,7 +310,7 @@ a {
   position: relative;
   background-color: #bfe0d9;
   border-top: 1px solid #7fc1b4;
-  font-family: Verdana,sans-serif;
+  font-family: Verdana, sans-serif;
   height: 28px;
   box-sizing: border-box;
   z-index: 1; }
@@ -317,7 +321,8 @@ a {
     float: left;
     z-index: 3;
     margin-top: -7px;
-    position: absolute; }
+    position: absolute;
+    color: #567280; }
   .footer .decorations {
     display: flex;
     position: absolute;
@@ -332,18 +337,18 @@ a {
       width: 160px;
       z-index: 1;
       border-top: 1px solid #008469; }
-    .footer .decorations .fig-container {
+    .footer .decorations .figure-container {
       float: left;
       flex-grow: 1; }
-      .footer .decorations .fig-container .figure {
+      .footer .decorations .figure-container .figure {
         background-color: #bfe0d9;
         height: 13px;
         border-top: 1px solid #7fc1b4; }
-        .footer .decorations .fig-container .figure.aright.left {
+        .footer .decorations .figure-container .figure.aright.left {
           width: 142px;
           margin-left: -14px;
           border-right: 1px solid #7fc1b4; }
-        .footer .decorations .fig-container .figure.aleft.right {
+        .footer .decorations .figure-container .figure.aleft.right {
           border-left: 1px solid #7fc1b4;
           right: 0;
           margin-right: -7px;
