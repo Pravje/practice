@@ -248,8 +248,8 @@ $content-bg: #008469;
   height: 27px;
   box-sizing: border-box;
   line-height: 24px;
-  background: linear-gradient(#43a490, #b8dcd5);
-  box-shadow: 0px 10px 15px 0px #8ebfb5;
+  background: linear-gradient(#43a490, #a7d9cf, #b8dcd5);
+  box-shadow: 0px 6px 10px 0px #8ebfb5;
   font-size: 0.75em; /*12px / 16 ;*/
   font-family: HeliosCond, sans-serif;
   font-weight: bold;
@@ -317,7 +317,6 @@ a {
   .field-items {
     display: flex;
     width: 555px;
-    display: flex;
     flex-wrap: nowrap;
     /* text-align: justify;*/
     .buttons {

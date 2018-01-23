@@ -120,7 +120,7 @@ body {
       height: 10px; }
       .content .decorations .rect .rect {
         height: 100%;
-        margin-left: 24px;
+        margin-left: 204px;
         position: relative; }
         .content .decorations .rect .rect:before {
           position: absolute;
@@ -193,8 +193,8 @@ body {
   height: 27px;
   box-sizing: border-box;
   line-height: 24px;
-  background: linear-gradient(#43a490, #b8dcd5);
-  box-shadow: 0px 10px 15px 0px #8ebfb5;
+  background: linear-gradient(#43a490, #a7d9cf, #b8dcd5);
+  box-shadow: 0px 6px 10px 0px #8ebfb5;
   font-size: 0.75em;
   /*12px / 16 ;*/
   font-family: HeliosCond, sans-serif;
@@ -251,7 +251,6 @@ a {
   .topics .field-items {
     display: flex;
     width: 555px;
-    display: flex;
     flex-wrap: nowrap;
     /* text-align: justify;*/ }
     .topics .field-items .buttons {
