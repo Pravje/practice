@@ -16,12 +16,14 @@ body {
 .header {
   display: block; }
   .header .decorations {
-    display: inherit; }
+    display: inherit;
+    background-color: #dbedea; }
 
 .top {
   height: 6px;
   background-color: #5fb2a1;
-  position: relative; }
+  position: relative;
+  z-index: 3; }
   .top .cell {
     height: 100%;
     position: absolute;
@@ -40,21 +42,23 @@ body {
       float: left; }
 
 .middle {
-  overflow: hidden; }
+  overflow: hidden;
+  position: relative;
+  z-index: 2; }
   .middle .rect {
-    box-shadow: 0px 10px 25px 0px #84c3b7;
+    box-shadow: 0px 6px 10px 0px #84c3b7;
     background-color: #bfe0d9;
     height: 34px; }
   .middle .figure-container {
     padding: 30px;
     overflow-x: hidden; }
   .middle .figure.aleft.left {
-    box-shadow: 10px 10px 25px 0px #84c3b7;
-    left: -16px;
+    box-shadow: 10px 6px 10px 0px #84c3b7;
+    left: -18px;
     width: 247px;
     height: 32px; }
   .middle .figure.aright.right {
-    box-shadow: -10px 10px 25px 0px #84c3b7;
+    box-shadow: -10px 6px 10px 0px #84c3b7;
     right: -8px;
     width: 67px;
     height: 15px; }
@@ -84,7 +88,8 @@ body {
   height: 66px;
   background-color: transparent;
   text-align: center;
-  font-family: 'HeliosCond', sans-serif; }
+  font-family: 'HeliosCond', sans-serif;
+  z-index: 3; }
   .logo .site {
     display: block; }
     .logo .site a {
@@ -98,12 +103,12 @@ body {
     color: #116957;
     font-size: 0.75em; }
 
-.topbg {
+.top-bg {
   background: url("../images/image-top.png") no-repeat center center;
   height: 74px;
-  margin-left: 148px;
+  margin-left: 125px;
   margin-top: -60px;
-  z-index: -1;
+  z-index: 0;
   position: relative; }
 
 .content {
@@ -115,7 +120,7 @@ body {
       height: 10px; }
       .content .decorations .rect .rect {
         height: 100%;
-        margin-left: 214px;
+        margin-left: 24px;
         position: relative; }
         .content .decorations .rect .rect:before {
           position: absolute;
@@ -130,7 +135,7 @@ body {
       width: 100%;
       overflow-x: hidden; }
       .content .decorations .figure-container .figure.aright.left {
-        width: 213px;
+        width: 204px;
         left: -5px;
         height: 9px;
         position: relative;
@@ -211,7 +216,8 @@ body {
       text-decoration: none;
       color: #333333;
       text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.75);
-      transition: 0.1s linear; }
+      transition: 0.1s linear;
+      font-weight: bolder; }
       .menu ul a:hover {
         text-shadow: 0px 0px 2px rgba(255, 0, 2, 0.75);
         color: #b6c7ff; }
@@ -305,7 +311,7 @@ a {
   text-size-adjust: none;
   padding-bottom: 80px; }
 
-.footer {
+footer {
   display: flex;
   position: relative;
   background-color: #bfe0d9;
@@ -314,7 +320,7 @@ a {
   height: 28px;
   box-sizing: border-box;
   z-index: 1; }
-  .footer .copyright {
+  footer .copyright {
     text-align: center;
     font-size: 0.6875em;
     width: 285px;
@@ -323,7 +329,7 @@ a {
     margin-top: -7px;
     position: absolute;
     color: #567280; }
-  .footer .decorations {
+  footer .decorations {
     display: flex;
     position: absolute;
     height: 14px;
@@ -331,24 +337,24 @@ a {
     margin-top: -14px;
     width: 100%;
     overflow: hidden; }
-    .footer .decorations .rect {
+    footer .decorations .rect {
       background-color: #bfe0d9;
       height: 14px;
       width: 160px;
       z-index: 1;
       border-top: 1px solid #008469; }
-    .footer .decorations .figure-container {
+    footer .decorations .figure-container {
       float: left;
       flex-grow: 1; }
-      .footer .decorations .figure-container .figure {
+      footer .decorations .figure-container .figure {
         background-color: #bfe0d9;
         height: 13px;
         border-top: 1px solid #7fc1b4; }
-        .footer .decorations .figure-container .figure.aright.left {
+        footer .decorations .figure-container .figure.aright.left {
           width: 142px;
           margin-left: -14px;
           border-right: 1px solid #7fc1b4; }
-        .footer .decorations .figure-container .figure.aleft.right {
+        footer .decorations .figure-container .figure.aleft.right {
           border-left: 1px solid #7fc1b4;
           right: 0;
           margin-right: -7px;
