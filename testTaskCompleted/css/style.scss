@@ -199,7 +199,7 @@ $content-bg: #008469;
   float: left;
   width: 160px;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 10px;
   box-sizing: border-box;
   z-index: 2;
   position: relative;
@@ -207,9 +207,10 @@ $content-bg: #008469;
   background-color: inherit;
   h3 {
     font-weight: lighter;
-    font-size: 1em; //16px
+    //font-size: 1em; //16px
+    font-size: 0.9em;
     line-height: 17px;
-    padding-bottom: 10px;
+    padding-bottom: 5px;
     &:before {
       width: 16px;
       height: 10px;
@@ -220,8 +221,13 @@ $content-bg: #008469;
       //content: '>> ';
     }
   }
-  h4, p {
+ /* h4, p {
     font-size: 0.875em; //14px;
+  }*/
+  article{
+    font-size: 0.775em;
+    word-spacing: 2.1px;
+    letter-spacing: 0.5px;
   }
   h3, h4 {
     margin: 0;
@@ -232,6 +238,9 @@ $content-bg: #008469;
   }
   a {
     color: white;
+  }
+  h3{
+    letter-spacing: 0.4px;
   }
 }
 

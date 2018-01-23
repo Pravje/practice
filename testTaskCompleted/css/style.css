@@ -155,17 +155,20 @@ body {
   float: left;
   width: 160px;
   padding-left: 16px;
-  padding-right: 16px;
+  padding-right: 10px;
   box-sizing: border-box;
   z-index: 2;
   position: relative;
   color: white;
-  background-color: inherit; }
+  background-color: inherit;
+  /* h4, p {
+     font-size: 0.875em; //14px;
+   }*/ }
   .news h3 {
     font-weight: lighter;
-    font-size: 1em;
+    font-size: 0.9em;
     line-height: 17px;
-    padding-bottom: 10px; }
+    padding-bottom: 5px; }
     .news h3:before {
       width: 16px;
       height: 10px;
@@ -173,8 +176,10 @@ body {
       content: '';
       line-height: 17px;
       background: url("../images/arrow.jpg") no-repeat left center; }
-  .news h4, .news p {
-    font-size: 0.875em; }
+  .news article {
+    font-size: 0.775em;
+    word-spacing: 2.1px;
+    letter-spacing: 0.5px; }
   .news h3, .news h4 {
     margin: 0; }
   .news p {
@@ -182,6 +187,8 @@ body {
     padding-bottom: 10px; }
   .news a {
     color: white; }
+  .news h3 {
+    letter-spacing: 0.4px; }
 
 .body {
   display: flex;
