@@ -60,7 +60,7 @@ $mid-shadow: #84c3b7+#000;
   position: relative;
   z-index: 2;
   .rect {
-    box-shadow: 0px 6px 10px 0px $mid-shadow;
+    box-shadow: 0px 5px 10px 0px $mid-shadow;
     background-color: #bfe0d9;
     height: 34px;
   }
@@ -70,13 +70,13 @@ $mid-shadow: #84c3b7+#000;
   }
   .figure {
     &.aleft.left {
-      box-shadow: 10px 6px 10px 0px $mid-shadow;
+      box-shadow: 10px 5px 10px 0px $mid-shadow;
       left: -18px;
       width: 247px;
       height: 32px;
     }
     &.aright.right {
-      box-shadow: -10px 6px 10px 0px $mid-shadow;
+      box-shadow: -4px 5px 10px 0px $mid-shadow;
       right: -8px;
       width: 67px;
       height: 15px;
@@ -211,7 +211,13 @@ $content-bg: #008469;
     line-height: 17px;
     padding-bottom: 10px;
     &:before {
-      content: '>> ';
+      width: 16px;
+      height: 10px;
+      display: inline-block;
+      content: '';
+      line-height: 17px;
+      background: url("../images/arrow.jpg") no-repeat left center;
+      //content: '>> ';
     }
   }
   h4, p {
@@ -247,7 +253,7 @@ $content-bg: #008469;
   box-sizing: border-box;
   line-height: 24px;
   background: linear-gradient(#43a490, #a7d9cf, #b8dcd5);
-  box-shadow: 0px 6px 10px 0px #8ebfb5;
+  box-shadow: 0px 5px 10px 0px #8ebfb5;
   font-size: 0.75em; /*12px / 16 ;*/
   font-family: HeliosCond, sans-serif;
   font-weight: bold;
@@ -255,6 +261,7 @@ $content-bg: #008469;
     margin: 0;
     padding: 0;
     list-style: none;
+    line-height: 25px;
     li {
       text-transform: uppercase;
       float: left;
@@ -273,6 +280,7 @@ $content-bg: #008469;
       text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.75);
       transition: 0.1s linear;
       font-weight: bolder;
+      letter-spacing: 0.4px;
       &:hover {
         text-shadow: 0px 0px 2px rgba(255, 0, 2, 0.75);
         color: #b6c7ff;
@@ -296,9 +304,10 @@ a {
   font-family: Verdana, sans-serif;
   position: relative;
   h1 {
-    margin-top: 32px;
+    margin: 22px 0 18px 0;
     width: 100%;
     font-size: 1em;
+    font-weight: lighter;
     a{
       color: $link-color;
       font-family: Verdana, sans-serif;
@@ -310,7 +319,7 @@ a {
     overflow-wrap: break-word;
   }
   h2:first-child {
-    margin-top: 5px;
+    margin-top: 0px;
   }
   .field-items {
     display: flex;
@@ -319,11 +328,15 @@ a {
     /* text-align: justify;*/
     .buttons {
       margin-right: 22px;
+      margin-left: 2px;
       img {
         border: 1px solid #007059;
       }
       a {
-        display: block;
+        display: flex;
+      }
+      a:last-child{
+        padding-top: 2px;
       }
       a:not(:last-child) {
         margin-bottom: 33px;
