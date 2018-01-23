@@ -6,13 +6,10 @@
 .idea
 out
 gen
-testTaskCompleted/psd/
+testTaskCompleted/psd
 testTaskCompleted/task.*
 testTaskCompleted/test.html
 testTaskCompleted/fonts
-testTaskCompleted/js/
+testTaskCompleted/js/script.js
 !testTaskCompleted/js/iscroll.js
 !testTaskCompleted/fonts/HE_CN___.TTF
-
-
-
