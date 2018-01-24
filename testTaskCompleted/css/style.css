@@ -13,10 +13,10 @@ body {
   width: 780px;
   margin: 0 auto; }
   .page header {
-    display: block; }
+    height: 114px; }
     .page header .decorations {
-      display: inherit;
-      background-color: #dbedea; }
+      height: inherit;
+      background: #dbedea url("../images/image-top.png") no-repeat 148px 40px; }
 
 .top {
   height: 6px;
@@ -45,19 +45,19 @@ body {
   position: relative;
   z-index: 2; }
   .middle .rect {
-    box-shadow: 0px 5px 10px 0px #84c3b7;
+    box-shadow: 0 5px 10px 0 #84c3b7;
     background-color: #bfe0d9;
     height: 34px; }
   .middle .figure-container {
     padding: 30px;
     overflow-x: hidden; }
   .middle .figure.aleft.left {
-    box-shadow: 10px 5px 10px 0px #84c3b7;
+    box-shadow: 10px 5px 10px 0 #84c3b7;
     left: -18px;
     width: 247px;
     height: 32px; }
   .middle .figure.aright.right {
-    box-shadow: -4px 5px 10px 0px #84c3b7;
+    box-shadow: -4px 5px 10px 0 #84c3b7;
     right: -8px;
     width: 67px;
     height: 15px; }
@@ -78,26 +78,21 @@ body {
   color: #05614E; }
 
 .logo {
-  box-sizing: border-box;
-  padding-top: 8px;
+  margin-top: 2px;
   position: absolute;
   top: 6px;
   width: 224px;
-  /*214px;*/
-  height: 66px;
-  background-color: transparent;
   text-align: center;
-  font-family: 'HeliosCond', sans-serif;
-  z-index: 3; }
-  .logo .site {
-    display: block; }
-    .logo .site a {
-      color: #333333;
-      text-decoration: none;
-      font-size: 1.625em;
-      /*26px / 16*/ }
-      .logo .site a .small {
-        font-size: 16px; }
+  font-family: 'HeliosCond', sans-serif; }
+  .logo p {
+    margin: 0; }
+    .logo p .small {
+      font-size: 16px; }
+  .logo a {
+    color: #333333;
+    text-decoration: none;
+    font-size: 1.625em;
+    /*26px / 16*/ }
   .logo .tagline {
     color: #116957;
     font-size: 0.75em; }
@@ -205,7 +200,7 @@ body {
   box-sizing: border-box;
   line-height: 24px;
   background: linear-gradient(#43a490, #a7d9cf, #b8dcd5);
-  box-shadow: 0px 5px 10px 0px #8ebfb5;
+  box-shadow: 0 5px 10px 0 #8ebfb5;
   font-size: 0.75em;
   /*12px / 16 ;*/
   font-family: HeliosCond, sans-serif;
@@ -227,12 +222,12 @@ body {
       padding: 0 11px;
       text-decoration: none;
       color: #333333;
-      text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.75);
+      text-shadow: 0 2px 2px rgba(255, 255, 255, 0.75);
       transition: 0.1s linear;
       font-weight: bolder;
       letter-spacing: 0.4px; }
       .menu ul a:hover {
-        text-shadow: 0px 0px 2px rgba(255, 0, 2, 0.75);
+        text-shadow: 0 0 2px rgba(255, 0, 2, 0.75);
         color: #b6c7ff; }
 
 a {
@@ -252,16 +247,17 @@ a {
     margin: 22px 0 18px 0;
     width: 100%;
     font-size: 1em;
-    font-weight: lighter; }
+    font-weight: lighter;
+    color: #333333; }
     .topics h1 a {
-      color: #333333;
+      color: inherit;
       font-family: Verdana, sans-serif; }
   .topics h2, .topics p {
     font-size: 0.6875em;
     word-wrap: break-word;
     overflow-wrap: break-word; }
   .topics h2:first-child {
-    margin-top: 0px; }
+    margin-top: 0; }
   .topics .field-items {
     display: flex;
     width: 555px;
@@ -343,6 +339,7 @@ footer {
     float: left;
     z-index: 3;
     margin-top: -7px;
+    margin-bottom: 0;
     position: absolute;
     color: #567280; }
   footer .decorations {

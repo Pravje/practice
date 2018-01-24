@@ -16,10 +16,10 @@ body {
   width: 780px;
   margin: 0 auto;
   header {
-    display: block;
+    height: 114px;
     .decorations {
-      display: inherit;
-      background-color: #dbedea;
+      height: inherit;
+      background: #dbedea url("../images/image-top.png") no-repeat 148px 40px;
     }
   }
 }
@@ -60,7 +60,7 @@ $mid-shadow: #84c3b7+#000;
   position: relative;
   z-index: 2;
   .rect {
-    box-shadow: 0px 5px 10px 0px $mid-shadow;
+    box-shadow: 0 5px 10px 0 $mid-shadow;
     background-color: #bfe0d9;
     height: 34px;
   }
@@ -70,13 +70,13 @@ $mid-shadow: #84c3b7+#000;
   }
   .figure {
     &.aleft.left {
-      box-shadow: 10px 5px 10px 0px $mid-shadow;
+      box-shadow: 10px 5px 10px 0 $mid-shadow;
       left: -18px;
       width: 247px;
       height: 32px;
     }
     &.aright.right {
-      box-shadow: -4px 5px 10px 0px $mid-shadow;
+      box-shadow: -4px 5px 10px 0 $mid-shadow;
       right: -8px;
       width: 67px;
       height: 15px;
@@ -106,27 +106,24 @@ $mid-shadow: #84c3b7+#000;
 
 $link-color: #333333;
 .logo {
-  box-sizing: border-box;
-  padding-top: 8px;
+  margin-top: 2px;
   position: absolute;
   top: 6px;
-  width: 224px; /*214px;*/
-  height: 66px;
-  background-color: transparent;
+  width: 224px;
   text-align: center;
   font-family: 'HeliosCond', sans-serif;
-  z-index: 3;
-  .site {
-    display: block;
-    a {
-      color: $link-color;
-      text-decoration: none;
-      font-size: 1.625em; /*26px / 16*/
-      .small {
-        font-size: 16px;
-      }
+  p{
+    margin: 0;
+    .small {
+      font-size: 16px;
     }
   }
+  a {
+    color: $link-color;
+    text-decoration: none;
+    font-size: 1.625em; /*26px / 16*/
+  }
+
   .tagline {
     color: #116957;
     font-size: 0.75em; //12px
@@ -262,7 +259,7 @@ $content-bg: #008469;
   box-sizing: border-box;
   line-height: 24px;
   background: linear-gradient(#43a490, #a7d9cf, #b8dcd5);
-  box-shadow: 0px 5px 10px 0px #8ebfb5;
+  box-shadow: 0 5px 10px 0 #8ebfb5;
   font-size: 0.75em; /*12px / 16 ;*/
   font-family: HeliosCond, sans-serif;
   font-weight: bold;
@@ -286,12 +283,12 @@ $content-bg: #008469;
       padding: 0 11px;
       text-decoration: none;
       color: $link-color;
-      text-shadow: 0px 2px 2px rgba(255, 255, 255, 0.75);
+      text-shadow: 0 2px 2px rgba(255, 255, 255, 0.75);
       transition: 0.1s linear;
       font-weight: bolder;
       letter-spacing: 0.4px;
       &:hover {
-        text-shadow: 0px 0px 2px rgba(255, 0, 2, 0.75);
+        text-shadow: 0 0 2px rgba(255, 0, 2, 0.75);
         color: #b6c7ff;
       }
     }
@@ -317,8 +314,9 @@ a {
     width: 100%;
     font-size: 1em;
     font-weight: lighter;
+    color: $link-color;
     a{
-      color: $link-color;
+      color: inherit;
       font-family: Verdana, sans-serif;
     }
   }
@@ -328,7 +326,7 @@ a {
     overflow-wrap: break-word;
   }
   h2:first-child {
-    margin-top: 0px;
+    margin-top: 0;
   }
   .field-items {
     display: flex;
@@ -425,6 +423,7 @@ footer {
     float: left;
     z-index: 3;
     margin-top: -7px;
+    margin-bottom: 0;
     position: absolute;
     color: #567280;
   }
