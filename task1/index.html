@@ -6,9 +6,9 @@
 </head>
 <body>
 <header>
-  <h1><a href="#">Transit</a></h1><!-- it is simple link to roo. For headline you need content -->
   <nav>
     <ul>
+      <li><a href="#">Transit</a></li>
       <li><a href="#">Home</a></li>
       <li><a href="#">Generic</a></li>
       <li><a href="#">Elements</a></li>
@@ -16,9 +16,9 @@
     </ul>
   </nav>
   <section>
-    <h2>Hi. This is Transit.</h2> <!-- h1 -->
+    <h1>Hi. This is Transit.</h1>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-      <a href="#">Lorem ipsum dolor</a> <!-- it is a button. See diffs link and button -->
+      <button>Lorem ipsum dolor</button>
     </p>
   </section>
 </header>
@@ -27,17 +27,17 @@
     <h2>Consectetur adipisicing elit</h2>
     <p>Lorem ipsum dolor sit amet, delectus consequatur, similique quia!</p>
     <article>
-      <i>cloud</i> <!--img better. bottstrap idea "i" -->
+      <img src="images/cloud.png" alt="cloud">
       <h3>Lorem ipsum dolor</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim quam consectetur quibusdam magni minus aut modi aliquid.</p>
     </article>
     <article>
-      <i>monitor</i>
+      <img src="images/monitor.png" alt="monitor">
       <h3>Consectetur adipisicing</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laudantium ullam consequatur repellat debitis maxime.</p>
     </article>
     <article>
-      <i>rocket</i>
+      <img src="images/rocket.png" alt="rocket">
       <h3>Adipisicing elit totam</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque eaque eveniet, nesciunt molestias. Ipsam, voluptate vero.</p>
     </article>
@@ -49,31 +49,27 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio, autem.</p>
   </header>
   <div>
-    <article> <!-- it is not ariticle. It is a very small items. See on figure / figcaption -->
-      <img src="images/profile_placeholder.gif" alt="" title="Image of one">
-      <h3>Lorem ipsum</h3>
+    <figure style="background: url('images/profile_placeholder.gif') no-repeat"> <!-- it is not ariticle. It is a very small items. See on figure / figcaption -->
+      <figcaption>Lorem ipsum</figcaption>
       <p>Lorem ipsum dolor</p>
-    </article>
-    <article>
-      <img src="images/profile_placeholder.gif" alt="" title="Image of two">
-      <h3>Voluptatem dolores</h3>
+    </figure>
+    <figure style="background: url('images/profile_placeholder.gif') no-repeat">
+      <figcaption>Voluptatem dolores</figcaption>
       <p>Lorem ipsum dolor</p>
-    </article>
-    <article>
-      <img src="images/profile_placeholder.gif" alt="" title="Image of thre">
-      <h3>Doloremque quo</h3>
+    </figure>
+    <figure style="background: url('images/profile_placeholder.gif') no-repeat">
+      <figcaption>Doloremque quo</figcaption>
       <p>Harum corrupti quia</p>
-    </article>
-    <article>
-      <img src="images/profile_placeholder.gif" alt="" title="Image of four">
-      <h3>Voluptatem dicta</h3>
+    </figure>
+    <figure style="background: url('images/profile_placeholder.gif') no-repeat ">
+      <figcaption>Voluptatem dicta</figcaption>
       <p>Et natus sapiente</p>
-    </article>
+    </figure>
   </div>
   <footer>
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam dolore illum, temporibus veritatis eligendi, aliquam, dolor enim itaque veniam aut eaque sequi qui quia vitae pariatur repudiandae ab dignissimos
       ex!
-      <a href="#">Lorem ipsum dolor sit</a> <!-- button -->
+      <button>Lorem ipsum dolor sit</button>
     </p>
   </footer>
 </section>
@@ -82,8 +78,8 @@
   <p>Lorem ipsum dolor sit amet. Delectus consequatur, similique quia!</p>
   <form action="#">
     <input type="text" name="name" placeholder="Name">
-    <input type="text" name="email" placeholder="Email"> <!-- type incorrect -->
-     <!-- lost message -->
+    <input type="email" name="email" placeholder="Email">
+    <textarea name="message" placeholder="Message" rows="6"></textarea>
     <input type="submit" value="Send Message">
   </form>
 </section>
@@ -91,65 +87,57 @@
   <div>
     <article>  <!-- It is not article. Very small items -->
       <h3>Lorem ipsum dolor</h3>
-      <p><a href="#">Lorem ipsum dolor sit</a>  <!-- maybe unordered list here? -->
-      <p>
-      <p><a href="#">Nesciunt itaque, alias possimus</a>
-      <p>
-      <p><a href="#">Optio rerum beatae autem</a>
-      <p>
-      <p><a href="#">Nostrum nemo dolorum facilis</a>
-      <p>
-      <p><a href="#">Quo fugit dolor totam</a>
-      <p>
+      <ul>
+        <li><a href="#">Lorem ipsum dolor sit</a></li>
+        <li><a href="#">Nesciunt itaque, alias possimus</a></li>
+        <li><a href="#">Optio rerum beatae autem</a></li>
+        <li><a href="#">Nostrum nemo dolorum facilis</a></li>
+        <li><a href="#">Quo fugit dolor totam</a></li>
+      </ul>
     </article>
     <article>
       <h3>Culpa quia, nesciunt</h3>
-      <p><a href="#">Lorem ipsum dolor sit</a>
-      <p>
-      <p><a href="#">Nesciunt itaque, alias possimus</a>
-      <p>
-      <p><a href="#">Optio rerum beatae autem</a>
-      <p>
-      <p><a href="#">Nostrum nemo dolorum facilis</a>
-      <p>
-      <p><a href="#">Quo fugit dolor totam</a>
-      <p>
+      <ul>
+        <li><a href="#">Lorem ipsum dolor sit</a></li>
+        <li><a href="#">Nesciunt itaque, alias possimus</a></li>
+        <li><a href="#">Optio rerum beatae autem</a></li>
+        <li><a href="#">Nostrum nemo dolorum facilis</a></li>
+        <li><a href="#">Quo fugit dolor totam</a></li>
+      </ul>
     </article>
     <article>
       <h3>Neque, dolore, facere</h3>
-      <p><a href="#">Lorem ipsum dolor sit</a>
-      <p>
-      <p><a href="#">Nesciunt itaque, alias possimus</a>
-      <p>
-      <p><a href="#">Optio rerum beatae autem</a>
-      <p>
-      <p><a href="#">Nostrum nemo dolorum facilis</a>
-      <p>
-      <p><a href="#">Quo fugit dolor totam</a>
-      <p>
+      <ul>
+        <li><a href="#">Lorem ipsum dolor sit</a></li>
+        <li><a href="#">Nesciunt itaque, alias possimus</a></li>
+        <li><a href="#">Optio rerum beatae autem</a></li>
+        <li><a href="#">Nostrum nemo dolorum facilis</a></li>
+        <li><a href="#">Quo fugit dolor totam</a></li>
+      </ul>
     </article>
     <article>
       <h3>Illum, tempori, saepe</h3>
-      <p><a href="#">Lorem ipsum dolor sit</a>
-      <p>
-      <p><a href="#">Nesciunt itaque, alias possimus</a>
-      <p>
-      <p><a href="#">Optio rerum beatae autem</a>
-      <p>
-      <p><a href="#">Nostrum nemo dolorum facilis</a>
-      <p>
-      <p><a href="#">Quo fugit dolor totam</a>
-      <p>
+      <ul>
+        <li><a href="#">Lorem ipsum dolor sit</a></li>
+        <li><a href="#">Nesciunt itaque, alias possimus</a></li>
+        <li><a href="#">Optio rerum beatae autem</a></li>
+        <li><a href="#">Nostrum nemo dolorum facilis</a></li>
+        <li><a href="#">Quo fugit dolor totam</a></li>
+      </ul>
     </article>
   </div>
   <div>
-    <p>© Untitled. All rights reserved. Design: <a href="#">TEMPLATED</a> Images: <a href="#">Unsplash</a></p>  <!-- different p -->
-    <p>  <!-- nav with buttons -->
-      <a href="#">fb</a>
-      <a href="#">tw</a>
-      <a href="#">g+</a>
-      <a href="#">in</a>
-    </p>
+    <p>© Untitled. All rights reserved.</p>
+    <p>Design: <a href="#">TEMPLATED</a></p>
+    <p>Images: <a href="#">Unsplash</a></p>
+    <nav>
+      <ul>
+        <li><a href="#">fb</a></li>
+        <li><a href="#">tw</a></li>
+        <li><a href="#">g+</a></li>
+        <li><a href="#">in</a></li>
+      </ul>
+    </nav>
   </div>
 </footer>
 </body>
