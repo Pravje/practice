@@ -1,0 +1,183 @@
+@import url(malatCirtulin.css);
+body {
+  margin: 0;
+  padding: 0; }
+
+.base {
+  display: flex;
+  position: relative;
+  width: 1024px;
+  height: 768px;
+  margin: auto; }
+
+.main {
+  position: inherit;
+  width: 1024px;
+  height: 768px;
+  margin: auto;
+  outline: 1px solid lightgreen; }
+
+[class*="layer"] {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  height: 100%; }
+
+.layer0 {
+  z-index: 0;
+  background: url("../images/testTaskAnimaitons.png") no-repeat center;
+  background-size: contain; }
+
+.layer1 {
+  z-index: 10; }
+
+.layer2 {
+  z-index: 20; }
+
+.layer3 {
+  z-index: 30; }
+
+.layer4 {
+  z-index: 40; }
+
+.layer5 {
+  z-index: 50; }
+
+.layer6 {
+  z-index: 60; }
+
+.layer7 {
+  z-index: 70; }
+
+.layer8 {
+  z-index: 80; }
+
+.layer9 {
+  z-index: 90; }
+
+.whites {
+  animation: whites .5s;
+  animation-delay: 6s;
+  animation-fill-mode: forwards; }
+
+@keyframes whites {
+  from {
+    background: rgba(255, 255, 255, 0); }
+  to {
+    background: rgba(255, 255, 255, 0.62);
+    animation-play-state: paused; } }
+.pulse {
+  width: 91px;
+  height: 99px;
+  opacity: 0;
+  animation: alphas 4.5s linear 1.0s;
+  animation-delay: 0.5s; }
+  .pulse img {
+    animation: pulse 1s ease 1s 4;
+    animation-fill-mode: forwards;
+    animation-delay: 0.5s; }
+  .pulse.p1 {
+    margin-left: 430px;
+    margin-top: 475px; }
+  .pulse.p2 {
+    margin-left: auto;
+    margin-right: 300px;
+    margin-top: 403px; }
+
+@keyframes alphas {
+  from, to {
+    opacity: 0; }
+  10%,90% {
+    opacity: 1; } }
+@keyframes pulse {
+  from, to {
+    transform: scale3d(1, 1, 1); }
+  50% {
+    transform: scale3d(1.5, 1.5, 1.5); } }
+.frame {
+  margin: auto;
+  margin-top: 153px;
+  background-size: cover;
+  animation: frame 2s;
+  animation-delay: 6s;
+  animation-fill-mode: forwards;
+  width: 735px;
+  height: 480px;
+  border: 8px solid white;
+  border-radius: 8px;
+  transform: scale3d(0.1, 0.1, 0.1);
+  opacity: 0; }
+
+@keyframes frame {
+  from {
+    transform: scale3d(0.1, 0.1, 0.1);
+    opacity: 0; }
+  to {
+    transform: scale3d(1, 1, 1);
+    opacity: 1.0; } }
+.fon-before {
+  background: url("../images/fon-before.png") no-repeat center; }
+
+.fon-after {
+  background: url("../images/fon-after.png") no-repeat center;
+  opacity: 0; }
+
+.radtop {
+  background: url("../images/radtop.png") no-repeat center; }
+
+.radbot {
+  background: url("../images/radbot.png") no-repeat center; }
+
+.center-before {
+  background: url("../images/center-before.png") no-repeat center; }
+
+.center-after {
+  background: url("../images/center-after.png") no-repeat center;
+  opacity: 0; }
+
+.overflow {
+  overflow: hidden; }
+
+.galo {
+  background: url("../images/galo.png") no-repeat center;
+  opacity: 0;
+  animation-name: galo-pulse;
+  animation-iteration-count: infinite;
+  animation-duration: 1.25s;
+  animation-delay: 18s; }
+
+@keyframes galo-pulse {
+  from, to {
+    opacity: 0; }
+  50% {
+    opacity: 1; } }
+.fon-after, .center-after {
+  animation: show-changes 1.5s;
+  animation-delay: 17s;
+  animation-fill-mode: forwards; }
+
+@keyframes show-changes {
+  to {
+    opacity: 1; } }
+@keyframes hide-changes {
+  to {
+    opacity: 0; } }
+.radtop {
+  animation: hide-changes 0.5s;
+  animation-delay: 13s;
+  animation-fill-mode: forwards; }
+
+.radbot {
+  animation: hide-changes 0.5s;
+  animation-delay: 16s;
+  animation-fill-mode: forwards; }
+
+.stimol {
+  background: url("../images/stimol.png") no-repeat center; }
+
+.preparat {
+  position: relative; }
+  .preparat div {
+    position: absolute; }
+
+/*# sourceMappingURL=style.css.map */

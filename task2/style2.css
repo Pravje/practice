@@ -1,0 +1,52 @@
+.main {
+  width: 500px;
+  height: 500px;
+  background: lightblue;
+  display: flex; }
+
+.layers {
+  margin: auto;
+  width: 100px;
+  height: 100px;
+  position: relative; }
+
+.layers [class*='layer'] {
+  position: absolute;
+  width: inherit;
+  height: inherit; }
+
+.layer1 {
+  background-color: rgba(0, 255, 0, 0.5);
+  z-index: 9; }
+
+.layer2 {
+  background-color: rgba(255, 255, 0, 0.51);
+  z-index: 8;
+  bottom: 100%; }
+
+.layers:hover .layer2 {
+  animation: rotate-test 8s ease-in-out 0s infinite;
+  pointer-events: none; }
+
+@keyframes rotate-test {
+  from, to {
+    transform: translate(0, 0) rotate(0deg); }
+  12.5% {
+    transform: translate(100px, 0px) rotate(90deg);
+    width: 100%; }
+  25% {
+    transform: translate(100px, 100px) rotate(180deg);
+    width: 200%; }
+  37.5% {
+    transform: translate(100px, 200px) rotate(270deg);
+    width: 100%; }
+  50% {
+    transform: translate(0px, 200px) rotate(360deg); }
+  62.5% {
+    transform: translate(-100px, 200px) rotate(450deg); }
+  75% {
+    transform: translate(-100px, 100px) rotate(540deg); }
+  87.5% {
+    transform: translate(-100px, 0px) rotate(630deg); } }
+
+/*# sourceMappingURL=style2.csss.map */
