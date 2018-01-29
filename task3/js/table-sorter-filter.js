@@ -2,13 +2,20 @@
     "use strict";
     window.TableSorterFilter = function (element) {
         this.element = element;
+        this.filtersField = null;
         this.testData = [];
-        this.tableHeader = HTMLHeadElement;
-        this.tableBody = HTMLBodyElement;
-        this.headers = [];
+        this.filteredData = [];
+        this.enabledFilters = {};
+        this.tableHeader = null;
+        this.tableBody = null;
         this.allowedColumns = [];
+        this.nextValueId = 0;
+        this.isFiltered = false;
         this.init();
         this.bindSorters();
+    };
+    TableSorterFilter.prototype.testMethod = function () {
+        alert("TableSorterFilter.testMethod(): <-- this")
     };
     TableSorterFilter.prototype.getTestData = function () {
         return [
@@ -35,7 +42,7 @@
                 'Due date': '13.01.2017',
                 'Created': '10.01.2017',
                 'Members': 'Mark',
-                'Type': 'desktop',
+                'Type': 'Desktop',
                 'Status': 'Done',
                 'Customer': 'David'
             },
@@ -64,31 +71,21 @@
         this.tableHeader = this.element.querySelector('thead');
         this.tableBody = this.element.querySelector('tbody');
         this.allowedColumns = ['Project name', 'Due date', 'Created', 'Members', 'Type', 'Status', 'Customer'];
+        /*this.allowedFiltersVariants = [
+            {
+                'Type': ['Web', 'Mobile', 'Desktop', 'Support'],
+                'Status': ['Done', 'In progress']
+            }
+        ];*/
         this.testData = this.getTestData();
     };
 
-    TableSorterFilter.prototype.isAllowedColumn = function (Column) {
-        return this.allowedColumns.indexOf(Column) < 0 ? false : true;
+    TableSorterFilter.prototype.isAllowedColumn = function (column) {
+        return this.allowedColumns.indexOf(column) < 0 ? false : true;
     };
-    TableSorterFilter.prototype.comparatorFactory = function (fieldName) {
-        return function (a, b) {
-            return a[fieldName].localeCompare(b[fieldName]);
-        }
+    TableSorterFilter.prototype.isAllowedFilter = function (column) {
+        console.log('method isAllowedFilter()')
     };
-
-    TableSorterFilter.prototype.sortForward = function (Column) {
-        this.sortByColumn(Column);
-    };
-
-    TableSorterFilter.prototype.sortBackward = function (Column) {
-        this.sortByColumn(Column);
-        this.testData.reverse();
-    };
-
-    TableSorterFilter.prototype.sortByColumn = function (Column) {
-        this.testData.sort(this.comparatorFactory(Column));
-    };
-
 
     TableSorterFilter.prototype.getRowValues = function (object) {
         Object.keys(object).map(function (objectKey, index) {
@@ -110,6 +107,7 @@
     function createCell(value) {
         var cell = document.createElement('td');
         cell.innerText = value;
+        //console.log(value);
         return cell;
     }
 
@@ -122,7 +120,8 @@
 
     TableSorterFilter.prototype.showResult = function () {
         var newBody = document.createElement('tbody');
-        this.testData.forEach(function (item, i, arr) {
+        var shownResult = this.isFiltered ? this.filteredData : this.testData;
+        shownResult.forEach(function (item, i, arr) {
             var cells = [];
             for (var key in item) {
                 cells.push(item[key]);
@@ -134,6 +133,26 @@
         this.tableBody = this.element.querySelector('tbody');
     };
 
+
+    TableSorterFilter.prototype.comparatorFactory = function (fieldName) {
+        return function (a, b) {
+            //console.log('compare(' + a[fieldName] + ",  " + b[fieldName] + ') = ' + a[fieldName].localeCompare(b[fieldName]));
+            return a[fieldName].localeCompare(b[fieldName]);
+        }
+    };
+    TableSorterFilter.prototype.sortByColumn = function (column) {
+        //console.log('Sorting by \'' + column + '\':');
+        this.isFiltered ? this.filteredData.sort(this.comparatorFactory(column)) : this.testData.sort(this.comparatorFactory(column));
+    };
+
+    TableSorterFilter.prototype.sortForward = function (column) {
+        this.sortByColumn(column);
+    };
+
+    TableSorterFilter.prototype.sortBackward = function (column) {
+        this.sortByColumn(column);
+        this.isFiltered ? this.filteredData.reverse() : this.testData.reverse();
+    };
 
     TableSorterFilter.prototype.doSort = function (target) {
         if (target.getAttribute('sort-direction').localeCompare('backward') === 0) {
@@ -156,6 +175,125 @@
                 }
             }
         })
+    };
+    TableSorterFilter.prototype.getFilterFieldgroup = function (field) {
+    };
+
+    function getCheckbox(type, value) {
+        var checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.setAttribute('name', type);
+        checkbox.setAttribute('value', value);
+        return checkbox;
     }
+
+    TableSorterFilter.prototype.getFilterItems = function (filter) {
+        filter = {
+            'Type': ['Web', 'Mobile', 'Desktop', 'Support']
+        };
+        var items = [];
+        for (var key in filter) {
+            filter[key].forEach(function (value) {
+                items.push(getCheckbox(key, value));
+            })
+        }
+        return items;
+    };
+
+    TableSorterFilter.prototype.getLabelForInput = function (input) {
+        var newId = this.element.id + '-checkbox' + this.nextValueId;
+        this.nextValueId++;
+        var label = document.createElement('label');
+        input.setAttribute('id', newId);
+        label.setAttribute('for', newId);
+        return label;
+    };
+
+    TableSorterFilter.prototype.createFilterField = function (filter) {
+        var field = document.createElement('fieldset');
+        var legend = document.createElement('legend');
+        legend.innerText = "Filter by 'Type'";
+        field.appendChild(legend);
+        var checkboxes = this.getFilterItems(filter);
+        var mainContext = this;
+        var labels = [];
+        checkboxes.forEach(function (checkbox) {
+            var label = mainContext.getLabelForInput(checkbox);
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(checkbox.getAttribute('value')));
+            field.appendChild(label);
+        });
+        return field;
+
+    };
+
+    TableSorterFilter.prototype.bindFilters = function (filtersField) {
+        this.filtersField = filtersField;
+        this.filtersField.appendChild(this.createFilterField({}));
+        var mainContext = this;
+        this.filtersField.addEventListener('change', function (e) {
+            mainContext.isFiltered = mainContext.getEnabledFilters();
+            if (mainContext.isFiltered) {
+                mainContext.filterData();
+            }
+            mainContext.showResult();
+        })
+    };
+
+    TableSorterFilter.prototype.filterData = function () {
+        var saveIds = [];
+        this.filteredData = [];
+        var mainContext = this;
+        //this.filteredData = Array.from(Object.create(this.testData));
+        this.testData.forEach(function (valueObj, index) {
+            for (var keys in mainContext.enabledFilters) {
+                for (var i = 0; i < mainContext.enabledFilters[keys].length; i++) {
+                    if (valueObj[keys].localeCompare(mainContext.enabledFilters[keys][i]) === 0)
+                        saveIds.push(index);
+                }
+            }
+        });
+        var uIds = [];
+        // remove duplicates
+        Object.keys(this.enabledFilters).length > 1 ? uIds = uniq_fast(saveIds) : uIds = saveIds;
+
+        for (var i = 0; i < uIds.length; i++) {
+            this.filteredData.push(this.testData[uIds[i]])
+        }
+    };
+
+    function uniq_fast(a) {
+        var seen = {};
+        var out = [];
+        var len = a.length;
+        var j = 0;
+        for (var i = 0; i < len; i++) {
+            var item = a[i];
+            if (seen[item] !== 1) {
+                seen[item] = 1;
+                out[j++] = item;
+            }
+        }
+        return out;
+    }
+
+    TableSorterFilter.prototype.getEnabledFilters = function () {
+        var filters = this.filtersField.querySelectorAll('input[type=checkbox]:checked');
+        if (filters.length > 0) {
+            this.enabledFilters = {};
+            var mainContext = this;
+            filters.forEach(function (checkbox) {
+                var column = checkbox.getAttribute('name');
+                var value = checkbox.getAttribute('value');
+                if (!mainContext.enabledFilters.hasOwnProperty(column)) {
+                    mainContext.enabledFilters[column] = [value];
+                } else {
+                    mainContext.enabledFilters[column].push(value);
+                }
+            });
+            return true;
+        }
+        return false;
+    };
 
 })(window);
