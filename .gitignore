@@ -12,3 +12,6 @@ gen
 /testTaskCompleted/fonts/
 !/testTaskCompleted/fonts/HE_CN___.TTF
 /testTaskCompleted/psd/
+task3/index-jq.html
+task3/js/jquery-latest.js
+task3/js/jquery.tablesorter.min.js
