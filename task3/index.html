@@ -105,9 +105,8 @@
 <script>
     function testSortFilter() {
         var table = document.getElementById('myTable');
-        var sorterFilter = new TableSorterFilter(table);
         var filtersField = document.getElementById('myFilters');
-        sorterFilter.bindFilters(filtersField);
+        var sorterFilter = new TableSorterFilter(table, filtersField);
     }
     window.onload = testSortFilter;
 </script>
