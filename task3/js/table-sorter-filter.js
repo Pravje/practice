@@ -31,11 +31,12 @@
         this.testData = this.getTestData();
         this.filteredData = [];
         this.enabledFilters = {};
-        this.allowedColumns = ['Project name', 'Due date', 'Created', 'Members', 'Type', 'Status', 'Customer'];
         this.nextValueId = 0;
         this.isFiltered = false;
+        this.shownRowsId = [];
         this.bindSorters();
         this.bindFilters();
+        this.showResult();
     };
 
     TableSorterFilter.prototype.getTestData = function () {
@@ -88,10 +89,6 @@
         ];
     };
 
-    TableSorterFilter.prototype.isAllowedColumn = function (column) {
-        return this.allowedColumns.indexOf(column) >= 0;
-    };
-
     TableSorterFilter.prototype.showResult = function () {
         var newBody = document.createElement('tbody');
         var shownResult = this.isFiltered ? this.filteredData : this.testData;
@@ -106,47 +103,43 @@
         this.element.replaceChild(newBody, this.element.querySelector('tbody'));
     };
 
-    TableSorterFilter.prototype.comparatorFactory = function (fieldName) {
+    TableSorterFilter.prototype.comparatorFactory = function (fieldName, data) {
+        if (!isNaN(Date.parse(data))) {
+            return function (a, b) {
+                return Date.parse(a[fieldName]) > Date.parse(b[fieldName]);
+            }
+        }
         return function (a, b) {
             return a[fieldName].localeCompare(b[fieldName]);
         }
     };
     TableSorterFilter.prototype.sortByColumn = function (column) {
-        this.isFiltered ? this.filteredData.sort(this.comparatorFactory(column)) : this.testData.sort(this.comparatorFactory(column));
+        if (this.isFiltered) {
+            this.filteredData.sort(this.comparatorFactory(column,this.filteredData[0][column]));
+        } else {
+            this.testData.sort(this.comparatorFactory(column,this.testData[0][column]));
+        }
     };
 
-    TableSorterFilter.prototype.sortForward = function (column) {
-        this.sortByColumn(column);
-    };
-
-    TableSorterFilter.prototype.sortBackward = function (column) {
-        this.sortByColumn(column);
-        this.isFiltered ? this.filteredData.reverse() : this.testData.reverse();
-    };
-
-    TableSorterFilter.prototype.doSort = function (target) {
+    TableSorterFilter.prototype.sorting = function (target) {
         if (target.getAttribute('sort-direction').localeCompare('backward') === 0) {
             target.setAttribute('sort-direction', 'forward');
-            this.sortForward(target.innerText);
+            this.sortByColumn(target.innerText);
         } else {
             target.setAttribute('sort-direction', 'backward');
-            this.sortBackward(target.innerText);
+            this.sortByColumn(target.innerText);
+            this.isFiltered ? this.filteredData.reverse() : this.testData.reverse();
         }
     };
     TableSorterFilter.prototype.bindSorters = function () {
         var mainContext = this;
         this.tableHeader.addEventListener('click', function (e) {
-            if (e.target.tagName === 'TH') {
-                if (mainContext.isAllowedColumn(e.target.innerText)) {
-                    if (!e.target.hasAttribute('sort-direction'))
-                        !e.target.setAttribute('sort-direction', 'backward');
-                    mainContext.doSort(e.target);
-                    mainContext.showResult();
-                }
-            }
+            if (!e.target.hasAttribute('sort-direction'))
+                !e.target.setAttribute('sort-direction', 'backward');
+            mainContext.sorting(e.target);
+            mainContext.showResult();
         })
     };
-
 
     TableSorterFilter.prototype.getFilterItems = function (filter) {
         filter = {
@@ -177,7 +170,6 @@
         field.appendChild(legend);
         var checkboxes = this.getFilterItems(filter);
         var mainContext = this;
-        var labels = [];
         checkboxes.forEach(function (checkbox) {
             var label = mainContext.getLabelForInput(checkbox);
             label.appendChild(checkbox);
@@ -192,7 +184,8 @@
         this.filtersField.appendChild(this.createFilterField({}));
         var mainContext = this;
         this.filtersField.addEventListener('change', function (e) {
-            mainContext.isFiltered = mainContext.getEnabledFilters();
+            mainContext.enabledFilters['Type'] = mainContext.getEnabledFilters(mainContext.filtersField);
+            mainContext.isFiltered = mainContext.enabledFilters['Type'].length > 0;
             if (mainContext.isFiltered) {
                 mainContext.filterData();
             }
@@ -200,15 +193,17 @@
         })
     };
 
+
     TableSorterFilter.prototype.filterData = function () {
-        var idsMap = new Map();
+        var shownRowsId = [];
         var saveIds = [];
         this.filteredData = [];
         var mainContext = this;
-        this.testData.forEach(function (valueObj, index) {
+
+        this.testData.forEach(function (row, index) {
             for (var keys in mainContext.enabledFilters) {
                 for (var i = 0; i < mainContext.enabledFilters[keys].length; i++) {
-                    if (valueObj[keys].localeCompare(mainContext.enabledFilters[keys][i]) === 0)
+                    if (row[keys].localeCompare(mainContext.enabledFilters[keys][i]) === 0)
                         saveIds.push(index);
                 }
             }
@@ -236,23 +231,9 @@
         return out;
     }
 
-    TableSorterFilter.prototype.getEnabledFilters = function () {
-        var filters = this.filtersField.querySelectorAll(':checked');
-        if (filters.length > 0) {
-            this.enabledFilters = {};
-            var mainContext = this;
-            filters.forEach(function (checkbox) {
-                var column = checkbox.getAttribute('name');
-                var value = checkbox.getAttribute('value');
-                if (!mainContext.enabledFilters.hasOwnProperty(column)) {
-                    mainContext.enabledFilters[column] = [value];
-                } else {
-                    mainContext.enabledFilters[column].push(value);
-                }
-            });
-            return true;
-        }
-        return false;
+    TableSorterFilter.prototype.getEnabledFilters = function (field) {
+        return Array.from(field.querySelectorAll(':checked')).map(function (value) {
+            return {}[value.getAttribute('name')] = value.getAttribute('value');
+        });
     };
-
 })(window);

@@ -52,61 +52,17 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td>First project</td>
-			<td>13.09.2017</td>
-			<td>12.04.2017</td>
-			<td>Oleg</td>
-			<td>Web</td>
-			<td>Done</td>
-			<td>John</td>
-			<!--<td>–</td>-->
-		</tr>
-		<tr>
-			<td>Second project</td>
-			<td>13.03.2017</td>
-			<td>12.02.2017</td>
-			<td>John</td>
-			<td>Mobile</td>
-			<td>In progress</td>
-			<td>Bill</td>
-		</tr>
-		<tr>
-			<td>Third project</td>
-			<td>13.01.2017</td>
-			<td>10.01.2017</td>
-			<td>Mark</td>
-			<td>Desktop</td>
-			<td>Done</td>
-			<td>David</td>
-		</tr>
-		<tr>
-			<td>Fourth project</td>
-			<td>13.04.2017</td>
-			<td>12.02.2017</td>
-			<td>Ann</td>
-			<td>Support</td>
-			<td>In progress</td>
-			<td>Alexandro Rohas</td>
-		</tr>
-		<tr>
-			<td>Fifth project</td>
-			<td>13.06.2017</td>
-			<td>12.06.2017</td>
-			<td>Katy</td>
-			<td>Mobile</td>
-			<td>In progress</td>
-			<td>John</td>
-		</tr>
+		
 		</tbody>
 	</table>
 </div>
 <script src="js/table-sorter-filter.js"></script>
 <script>
+    var sorterFilter;
     function testSortFilter() {
         var table = document.getElementById('myTable');
         var filtersField = document.getElementById('myFilters');
-        var sorterFilter = new TableSorterFilter(table, filtersField);
+        sorterFilter = new TableSorterFilter(table, filtersField);
     }
     window.onload = testSortFilter;
 </script>
