@@ -1,119 +1,20 @@
 (function (window) {
     "use strict";
 
-    function getCheckbox(type, value) {
-        var checkbox = document.createElement('input');
-        checkbox.type = 'checkbox';
-        checkbox.setAttribute('name', type);
-        checkbox.setAttribute('value', value);
-        return checkbox;
-    }
-
-    function createCell(value) {
-        var cell = document.createElement('td');
-        cell.innerText = value;
-        return cell;
-    }
-
-    function createRow(arr) {
-        var row = document.createElement('tr');
-        for (var i = 0; i < arr.length; i++)
-            row.appendChild(createCell(arr[i]));
-        return row;
-    }
-
-    function uniq_fast(a) {
-        var seen = {};
-        var out = [];
-        var len = a.length;
-        var j = 0;
-        for (var i = 0; i < len; i++) {
-            var item = a[i];
-            if (seen[item] !== 1) {
-                seen[item] = 1;
-                out[j++] = item;
-            }
-        }
-        return out;
-    }
-
     window.TableSorterFilter = function (table, filtersField) {
         this.table = table;
         this.filtersField = filtersField;
-        this.testData = this.getTestData();
-        this.originalData = this.getTableData();
+        this.originalData = getTableData(this.table);
+        this.testData = tableDataToArrayOfObjects(this.originalData);
         this.isFiltered = false;
         this.filteredData = [];
         this.enabledFilters = {};
         this.nextValueId = 0;
-        this.shownRowsId = [];
-        console.log(this.originalData);
         this.bindSorters();
-        //this.bindFilters();
+        this.bindFilter('Type');
         this.showResult();
     };
     window.TableSorterFilter.prototype = {
-        getTableData: function () {
-            return {
-                headers: Array.from(this.table.querySelectorAll('thead tr th')).map(function (value) {
-                    return value.innerHTML;
-                }),
-                content: Array.from(this.table.querySelectorAll('tbody tr')).map(function (row) {
-                    return Array.from(row.getElementsByTagName('td')).map(function (cell) {
-                        return cell.innerText;
-                    });
-                })
-            };
-        },
-        getTestData: function () {
-            return [
-                {
-                    'Project name': 'First project',
-                    'Due date': '13.09.2017',
-                    'Created': '12.04.2017',
-                    'Members': 'Oleg',
-                    'Type': 'Web',
-                    'Status': 'Done',
-                    'Customer': 'John'
-                },
-                {
-                    'Project name': 'Second project',
-                    'Due date': '13.03.2017',
-                    'Created': '12.02.2017',
-                    'Members': 'John',
-                    'Type': 'Mobile',
-                    'Status': 'In progress',
-                    'Customer': 'Bill'
-                },
-                {
-                    'Project name': 'Third project',
-                    'Due date': '13.01.2017',
-                    'Created': '10.01.2017',
-                    'Members': 'Mark',
-                    'Type': 'Desktop',
-                    'Status': 'Done',
-                    'Customer': 'David'
-                },
-                {
-                    'Project name': 'Fourth project',
-                    'Due date': '13.04.2017',
-                    'Created': '12.02.2017',
-                    'Members': 'Ann',
-                    'Type': 'Support',
-                    'Status': 'In progress',
-                    'Customer': 'Alexandro Rohas'
-                },
-                {
-                    'Project name': 'Fifth project',
-                    'Due date': '13.06.2017',
-                    'Created': '12.06.2017',
-                    'Members': 'Katy',
-                    'Type': 'Mobile',
-                    'Status': 'In progress',
-                    'Customer': 'John'
-                }
-            ];
-        },
         showResult: function () {
             var newBody = document.createElement('tbody');
             var shownResult = this.isFiltered ? this.filteredData : this.testData;
@@ -132,10 +33,6 @@
             var relp = value.replace(re, "-");
             var val = Date.parse(relp);
             var isDate = !isNaN(val);
-            console.log(relp);
-            console.log(val);
-            console.log(isDate);
-
             if (isDate) {
                 return function (a, b) {
                     return Date.parse(a[fieldName]) > Date.parse(b[fieldName]);
@@ -153,8 +50,10 @@
         sortByColumn: function (column) {
             if (this.isFiltered) {
                 this.filteredData.sort(this.comparatorFactory(column, this.filteredData[0][column]));
+                return this.filteredData;
             } else {
                 this.testData.sort(this.comparatorFactory(column, this.testData[0][column]));
+                return this.testData;
             }
         },
         sorting: function (target) {
@@ -163,8 +62,7 @@
                 this.sortByColumn(target.innerText);
             } else {
                 target.setAttribute('sort-direction', 'backward');
-                this.sortByColumn(target.innerText);
-                this.isFiltered ? this.filteredData.reverse() : this.testData.reverse();
+                this.sortByColumn(target.innerText).reverse();
             }
         },
         bindSorters: function () {
@@ -176,16 +74,20 @@
                 mainContext.showResult();
             })
         },
-        getFilterItems: function () {
-            var filter = {
-                'Type': ['Web', 'Mobile', 'Desktop', 'Support']
-            };
+        getFilterValues: function (filterName) {
+            var cellId = this.originalData.headers.indexOf(filterName);
+            var filterValues = new Set();
+            this.originalData.content.forEach(function (row) {
+                filterValues.add(row[cellId])
+            });
+            return filterValues;
+        },
+        createFilterItems: function (filterName) {
+            var headerId = this.originalData.headers.indexOf(filterName);
             var items = [];
-            for (var key in filter) {
-                filter[key].forEach(function (value) {
-                    items.push(getCheckbox(key, value));
-                })
-            }
+            this.getFilterValues(filterName).forEach(function (value) {
+                items.push(getCheckbox(filterName, value))
+            });
             return items;
         },
         getLabelForInput: function (input) {
@@ -196,12 +98,12 @@
             label.setAttribute('for', newId);
             return label;
         },
-        createFilterField: function () {
+        createFilterField: function (filterName) {
             var field = document.createElement('fieldset');
             var legend = document.createElement('legend');
-            legend.innerText = "Filter by 'Type'";
+            legend.innerText = "Filter by " + filterName;
             field.appendChild(legend);
-            var checkboxes = this.getFilterItems();
+            var checkboxes = this.createFilterItems(filterName);
             var mainContext = this;
             checkboxes.forEach(function (checkbox) {
                 var label = mainContext.getLabelForInput(checkbox);
@@ -211,13 +113,13 @@
             });
             return field;
         },
-        bindFilters: function () {
-            var filters = this.createFilterField();
-            this.filtersField.appendChild(filters);
+        bindFilter: function (filterName) {
+            var filter = this.createFilterField(filterName);
+            this.filtersField.appendChild(filter);
             var mainContext = this;
-            this.filtersField.addEventListener('change', function (e) {
-                mainContext.enabledFilters['Type'] = mainContext.getEnabledFilters(mainContext.filtersField);
-                mainContext.isFiltered = mainContext.enabledFilters['Type'].length > 0;
+            filter.addEventListener('change', function (e) {
+                mainContext.enabledFilters = mainContext.getEnabledFilters(filterName);
+                mainContext.isFiltered = mainContext.enabledFilters.length > 0;
                 if (mainContext.isFiltered) {
                     mainContext.filterData();
                 }
@@ -225,30 +127,26 @@
             })
         },
         filterData: function () {
-            var shownRowsId = [];
-            var saveIds = [];
+            var shownRowsIdSet = new Set();
             this.filteredData = [];
             var mainContext = this;
-
             this.testData.forEach(function (row, index) {
-                for (var keys in mainContext.enabledFilters) {
-                    for (var i = 0; i < mainContext.enabledFilters[keys].length; i++) {
-                        if (!row[keys].localeCompare(mainContext.enabledFilters[keys][i]))
-                            saveIds.push(index);
-                    }
+                for (var i = 0; i < mainContext.enabledFilters.length; i++) {
+                    if (row['Type'].localeCompare(mainContext.enabledFilters[i]) === 0)
+                        shownRowsIdSet.add(index);
                 }
             });
-            var uIds = [];
-            Object.keys(this.enabledFilters).length > 1 ? uIds = uniq_fast(saveIds) : uIds = saveIds;
 
-            for (var i = 0; i < uIds.length; i++) {
-                this.filteredData.push(this.testData[uIds[i]])
+            var shownRowsId = Array.from(shownRowsIdSet);
+            for (var i = 0; i < shownRowsId.length; i++) {
+                this.filteredData.push(this.testData[shownRowsId[i]])
             }
         },
-        getEnabledFilters: function (field) {
-            return Array.from(field.querySelectorAll(':checked')).map(function (value) {
+        getEnabledFilters: function (filterName) {
+            return Array.from(this.filtersField.querySelectorAll('[name=' + filterName + ']:checked')).map(function (value) {
                 return value.getAttribute('value');
             });
+
         }
     };
 }(window));
