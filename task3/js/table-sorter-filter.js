@@ -121,18 +121,18 @@
                 mainContext.enabledFilters = mainContext.getEnabledFilters(filterName);
                 mainContext.isFiltered = mainContext.enabledFilters.length > 0;
                 if (mainContext.isFiltered) {
-                    mainContext.filterData();
+                    mainContext.filterData(filterName);
                 }
                 mainContext.showResult();
             })
         },
-        filterData: function () {
+        filterData: function (filterName) {
             var shownRowsIdSet = new Set();
             this.filteredData = [];
             var mainContext = this;
             this.testData.forEach(function (row, index) {
                 for (var i = 0; i < mainContext.enabledFilters.length; i++) {
-                    if (row['Type'].localeCompare(mainContext.enabledFilters[i]) === 0)
+                    if (row[filterName].localeCompare(mainContext.enabledFilters[i]) === 0)
                         shownRowsIdSet.add(index);
                 }
             });
