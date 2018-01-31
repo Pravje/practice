@@ -92,7 +92,7 @@
     TableSorterFilter.prototype.showResult = function () {
         var newBody = document.createElement('tbody');
         var shownResult = this.isFiltered ? this.filteredData : this.testData;
-        shownResult.forEach(function (item, i, arr) {
+        shownResult.forEach(function (item) {
             var cells = [];
             for (var key in item) {
                 cells.push(item[key]);
@@ -103,21 +103,35 @@
         this.element.replaceChild(newBody, this.element.querySelector('tbody'));
     };
 
-    TableSorterFilter.prototype.comparatorFactory = function (fieldName, data) {
-        if (!isNaN(Date.parse(data))) {
+    TableSorterFilter.prototype.comparatorFactory = function (fieldName, value) {
+
+        var re = /\./g;
+        var relp = value.replace(re,"-");
+        var val = Date.parse(relp);
+        var isDate =  !isNaN(val);
+        console.log(relp);
+        console.log(val);
+        console.log(isDate);
+
+        if (isDate) {
             return function (a, b) {
                 return Date.parse(a[fieldName]) > Date.parse(b[fieldName]);
             }
-        }
-        return function (a, b) {
-            return a[fieldName].localeCompare(b[fieldName]);
+        } else if (Number.isInteger(Number(value))) {
+            return function (a, b) {
+                return a - b;
+            }
+        } else {
+            return function (a, b) {
+                return a[fieldName].localeCompare(b[fieldName]);
+            }
         }
     };
     TableSorterFilter.prototype.sortByColumn = function (column) {
         if (this.isFiltered) {
-            this.filteredData.sort(this.comparatorFactory(column,this.filteredData[0][column]));
+            this.filteredData.sort(this.comparatorFactory(column, this.filteredData[0][column]));
         } else {
-            this.testData.sort(this.comparatorFactory(column,this.testData[0][column]));
+            this.testData.sort(this.comparatorFactory(column, this.testData[0][column]));
         }
     };
 
@@ -141,8 +155,8 @@
         })
     };
 
-    TableSorterFilter.prototype.getFilterItems = function (filter) {
-        filter = {
+    TableSorterFilter.prototype.getFilterItems = function () {
+        var filter = {
             'Type': ['Web', 'Mobile', 'Desktop', 'Support']
         };
         var items = [];
@@ -163,12 +177,12 @@
         return label;
     };
 
-    TableSorterFilter.prototype.createFilterField = function (filter) {
+    TableSorterFilter.prototype.createFilterField = function () {
         var field = document.createElement('fieldset');
         var legend = document.createElement('legend');
         legend.innerText = "Filter by 'Type'";
         field.appendChild(legend);
-        var checkboxes = this.getFilterItems(filter);
+        var checkboxes = this.getFilterItems();
         var mainContext = this;
         checkboxes.forEach(function (checkbox) {
             var label = mainContext.getLabelForInput(checkbox);
@@ -181,7 +195,8 @@
     };
 
     TableSorterFilter.prototype.bindFilters = function () {
-        this.filtersField.appendChild(this.createFilterField({}));
+        var filters = this.createFilterField();
+        this.filtersField.appendChild(filters);
         var mainContext = this;
         this.filtersField.addEventListener('change', function (e) {
             mainContext.enabledFilters['Type'] = mainContext.getEnabledFilters(mainContext.filtersField);
@@ -203,7 +218,7 @@
         this.testData.forEach(function (row, index) {
             for (var keys in mainContext.enabledFilters) {
                 for (var i = 0; i < mainContext.enabledFilters[keys].length; i++) {
-                    if (row[keys].localeCompare(mainContext.enabledFilters[keys][i]) === 0)
+                    if (!row[keys].localeCompare(mainContext.enabledFilters[keys][i]))
                         saveIds.push(index);
                 }
             }
@@ -233,7 +248,7 @@
 
     TableSorterFilter.prototype.getEnabledFilters = function (field) {
         return Array.from(field.querySelectorAll(':checked')).map(function (value) {
-            return {}[value.getAttribute('name')] = value.getAttribute('value');
+            return value.getAttribute('value');
         });
     };
-})(window);
+}(window));

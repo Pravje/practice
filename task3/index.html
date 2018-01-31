@@ -1,69 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Task 3</title>
-	<link rel="stylesheet" href="css/normalize.css">
-	<style>
-		table {
-			border-collapse: collapse;
-			outline: 1px solid gray;
-		}
-		
-		thead {
-			border-bottom: 1px solid gray;
-		}
-		
-		tr th:first-child, tr td:first-child {
-			border-right: 1px solid gray;
-		}
-		
-		tbody tr:nth-child(2n) {
-			background-color: lightgrey;
-		}
-		th{
-			cursor: pointer;
-		}
-		td,th {
-			padding: 5px;
-		}
-		fieldset{
-			margin: 0 0 5px 0;
-		}
-		fieldset label, body > div{
-			padding: 5px;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>Task 3</title>
+    <link rel="stylesheet" href="css/normalize.css">
+    <style>
+        table {
+            border-collapse: collapse;
+            outline: 1px solid gray;
+        }
+
+        thead {
+            border-bottom: 1px solid gray;
+        }
+
+        tr th:first-child, tr td:first-child {
+            border-right: 1px solid gray;
+        }
+
+        tbody tr:nth-child(2n) {
+            background-color: lightgrey;
+        }
+
+        th {
+            cursor: pointer;
+        }
+
+        td, th {
+            padding: 5px;
+        }
+
+        fieldset {
+            margin: 0 0 5px 0;
+        }
+
+        fieldset label, body > div {
+            padding: 5px;
+        }
+    </style>
 </head>
 <body>
 <div>
-	<div id="myFilters"></div>
-	<table id="myTable">
-		<thead>
-		<tr>
-			<th>Project name</th>
-			<th>Due date</th>
-			<th>Created</th>
-			<th>Members</th>
-			<th>Type</th>
-			<th>Status</th>
-			<th>Customer</th>
-			<!--<th>+</th>-->
-		</tr>
-		</thead>
-		<tbody>
-		
-		</tbody>
-	</table>
+    <div id="myFilters"></div>
+    <table id="myTable">
+        <thead>
+        <tr>
+            <th>Project name</th>
+            <th>Due date</th>
+            <th>Created</th>
+            <th>Members</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Customer</th>
+        </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
 </div>
 <script src="js/table-sorter-filter.js"></script>
 <script>
     var sorterFilter;
+
     function testSortFilter() {
         var table = document.getElementById('myTable');
         var filtersField = document.getElementById('myFilters');
         sorterFilter = new TableSorterFilter(table, filtersField);
     }
+
     window.onload = testSortFilter;
 </script>
 </body>
