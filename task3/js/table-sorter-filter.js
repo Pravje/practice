@@ -25,8 +25,8 @@
 
 
     window.TableSorterFilter = function (table, filtersField) {
-        this.element = table;
-        this.tableHeader = this.element.querySelector('thead');
+        this.table = table;
+        this.tableHeader = this.table.querySelector('thead');
         this.filtersField = filtersField;
         this.testData = this.getTestData();
         this.filteredData = [];
@@ -34,11 +34,25 @@
         this.nextValueId = 0;
         this.isFiltered = false;
         this.shownRowsId = [];
+        this.originalData = this.getTableData();
+        console.log(this.originalData);
         this.bindSorters();
         this.bindFilters();
         this.showResult();
     };
 
+    TableSorterFilter.prototype.getTableData = function () {
+        return {
+            headers: Array.from(this.table.querySelectorAll('thead tr th')).map(function (value) {
+                return value.innerHTML;
+            }),
+            content: Array.from(this.table.querySelectorAll('tbody tr')).map(function (row) {
+                return Array.from(row.getElementsByTagName('td')).map(function (cell) {
+                    return cell.innerText;
+                });
+            })
+        };
+    };
     TableSorterFilter.prototype.getTestData = function () {
         return [
             {
@@ -100,15 +114,14 @@
             newBody.appendChild(createRow(cells));
             cells = [];
         });
-        this.element.replaceChild(newBody, this.element.querySelector('tbody'));
+        this.table.replaceChild(newBody, this.table.querySelector('tbody'));
     };
 
     TableSorterFilter.prototype.comparatorFactory = function (fieldName, value) {
-
         var re = /\./g;
-        var relp = value.replace(re,"-");
+        var relp = value.replace(re, "-");
         var val = Date.parse(relp);
-        var isDate =  !isNaN(val);
+        var isDate = !isNaN(val);
         console.log(relp);
         console.log(val);
         console.log(isDate);
@@ -169,7 +182,7 @@
     };
 
     TableSorterFilter.prototype.getLabelForInput = function (input) {
-        var newId = this.element.id + '-checkbox' + this.nextValueId;
+        var newId = this.table.id + '-checkbox' + this.nextValueId;
         this.nextValueId++;
         var label = document.createElement('label');
         input.setAttribute('id', newId);
