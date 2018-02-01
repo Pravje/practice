@@ -4,12 +4,13 @@
     window.TableSorterFilter = function (table, filtersField) {
         this.table = table;
         this.filtersField = filtersField;
-        this.originalData = getTableData(this.table);
-        this.testData = tableDataToArrayOfObjects(this.originalData);
+
+        this.originalData = API.getTableData(this.table);
+        this.testData = API.tableDataToArrayOfObjects(this.originalData);
+
         this.isFiltered = false;
         this.filteredData = [];
-        this.enabledFilters = {};
-        this.nextValueId = 0;
+        this.enabledFilters = [];
         this.bindSorters();
         this.bindFilter('Type');
     };
@@ -22,7 +23,7 @@
                 for (var key in item) {
                     cells.push(item[key]);
                 }
-                newBody.appendChild(createRow(cells));
+                newBody.appendChild(API.createRow(cells));
             });
             this.table.replaceChild(newBody, this.table.querySelector('tbody'));
         },
@@ -76,36 +77,23 @@
             var cellId = this.originalData.headers.indexOf(filterName);
             var filterValues = new Set();
             this.originalData.content.forEach(function (row) {
-                filterValues.add(row[cellId])
+                filterValues.add(row[cellId]);
             });
-            return filterValues;
+            return Array.from(filterValues);
         },
         createFilterItems: function (filterName) {
-            var items = [];
-            this.getFilterValues(filterName).forEach(function (value) {
-                items.push(getCheckbox(filterName, value))
-            });
-            return items;
-        },
-        getLabelForInput: function (input) {
-            var newId = this.table.id + '-checkbox' + this.nextValueId;
-            this.nextValueId++;
-            var label = document.createElement('label');
-            input.setAttribute('id', newId);
-            label.setAttribute('for', newId);
-            return label;
+            return this.getFilterValues(filterName).map( (value) => API.getCheckbox(filterName, value));
         },
         createFilterField: function (filterName) {
             var field = document.createElement('fieldset');
             var legend = document.createElement('legend');
             legend.innerText = "Filter by " + filterName;
             field.appendChild(legend);
-            var checkboxes = this.createFilterItems(filterName);
-            var mainContext = this;
-            checkboxes.forEach(function (checkbox) {
-                var label = mainContext.getLabelForInput(checkbox);
+
+            this.createFilterItems(filterName).forEach(function (checkbox) {
+                var label = document.createElement('label');
                 label.appendChild(checkbox);
-                label.appendChild(document.createTextNode(checkbox.getAttribute('value')));
+                label.appendChild(document.createTextNode(checkbox.value));
                 field.appendChild(label);
             });
             return field;
@@ -113,15 +101,15 @@
         bindFilter: function (filterName) {
             var filter = this.createFilterField(filterName);
             this.filtersField.appendChild(filter);
-            var mainContext = this;
-            filter.addEventListener('change', function (e) {
-                mainContext.enabledFilters = mainContext.getEnabledFilters(filterName);
-                mainContext.isFiltered = mainContext.enabledFilters.length > 0;
-                if (mainContext.isFiltered) {
-                    mainContext.filterData(filterName);
-                }
-                mainContext.showResult();
-            })
+
+            filter.addEventListener('change', function () {
+              this.enabledFilters = this.getEnabledFilters(filterName);
+              this.isFiltered = this.enabledFilters.length > 0;
+              if (this.isFiltered) {
+                this.filterData(filterName);
+              }
+              this.showResult();
+            }.bind(this));
         },
         filterData: function (filterName) {
             var shownRowsIdSet = new Set();
@@ -137,11 +125,10 @@
                 mainContext.filteredData.push(mainContext.testData[id])
             });
         },
-        getEnabledFilters: function (filterName) {
-            return Array.from(this.filtersField.querySelectorAll('[name=' + filterName + ']:checked')).map(function (value) {
+        getEnabledFilters: function () {
+            return Array.from(this.filtersField.querySelectorAll(':checked')).map(function (value) {
                 return value.getAttribute('value');
             });
-
         }
     };
 }(window));
