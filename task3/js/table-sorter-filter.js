@@ -28,10 +28,8 @@
             this.table.replaceChild(newBody, this.table.querySelector('tbody'));
         },
         comparatorFactory: function (fieldName, value) {
-            var relp = value.replace(/\./g, "-");
             var val = value.length === 10 ? Date.parse(API.swapDayMonth(value)) : NaN;
-            var isDate = !isNaN(val);
-            if (isDate) {
+            if (!isNaN(val)) {
                 return function (a, b) {
                     return Date.parse(API.swapDayMonth(a[fieldName])) > Date.parse(API.swapDayMonth(b[fieldName]));
                 }
