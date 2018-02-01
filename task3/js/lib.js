@@ -47,10 +47,14 @@
         }
         return array;
     }
+    function swapDayMonth(dateString) {
+        return dateString.substr(3, 2)+"/"+dateString.substr(0, 2)+"/"+dateString.substr(6, 4);
+    }
     window.API = {
       getCheckbox: getCheckbox,
       createRow: createRow,
       getTableData: getTableData,
-      tableDataToArrayOfObjects: tableDataToArrayOfObjects
+      tableDataToArrayOfObjects: tableDataToArrayOfObjects,
+      swapDayMonth: swapDayMonth
     };
 }(window));

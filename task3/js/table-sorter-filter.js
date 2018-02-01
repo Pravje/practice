@@ -28,13 +28,12 @@
             this.table.replaceChild(newBody, this.table.querySelector('tbody'));
         },
         comparatorFactory: function (fieldName, value) {
-            var re = /\./g;
-            var relp = value.replace(re, "-");
-            var val = Date.parse(relp);
+            var relp = value.replace(/\./g, "-");
+            var val = value.length === 10 ? Date.parse(API.swapDayMonth(value)) : NaN;
             var isDate = !isNaN(val);
             if (isDate) {
                 return function (a, b) {
-                    return Date.parse(a[fieldName]) > Date.parse(b[fieldName]);
+                    return Date.parse(API.swapDayMonth(a[fieldName])) > Date.parse(API.swapDayMonth(b[fieldName]));
                 }
             } else if (Number.isInteger(Number(value))) {
                 return function (a, b) {
@@ -68,7 +67,7 @@
             var mainContext = this;
             this.table.querySelector('thead').addEventListener('click', function (e) {
                 if (!e.target.hasAttribute('sort-direction'))
-                    !e.target.setAttribute('sort-direction', 'backward');
+                    e.target.setAttribute('sort-direction', 'backward');
                 mainContext.sorting(e.target);
                 mainContext.showResult();
             })
@@ -82,7 +81,7 @@
             return Array.from(filterValues);
         },
         createFilterItems: function (filterName) {
-            return this.getFilterValues(filterName).map( (value) => API.getCheckbox(filterName, value));
+            return this.getFilterValues(filterName).map(value => API.getCheckbox(filterName, value));
         },
         createFilterField: function (filterName) {
             var field = document.createElement('fieldset');
@@ -103,16 +102,18 @@
             this.filtersField.appendChild(filter);
 
             filter.addEventListener('change', function () {
-              this.enabledFilters = this.getEnabledFilters(filterName);
-              this.isFiltered = this.enabledFilters.length > 0;
-              if (this.isFiltered) {
-                this.filterData(filterName);
-              }
-              this.showResult();
+                this.enabledFilters = this.getEnabledFilters(filterName);
+                this.isFiltered = this.enabledFilters.length > 0;
+                if (this.isFiltered) {
+                    this.filterData(filterName);
+                }
+                this.showResult();
             }.bind(this));
         },
         filterData: function (filterName) {
-            this.filteredData = this.testData.filter( row => {return this.enabledFilters.indexOf(row[filterName]) >= 0 }) || [];
+            this.filteredData = this.testData.filter(row => {
+                return this.enabledFilters.indexOf(row[filterName]) >= 0
+            }) || [];
         },
         getEnabledFilters: function () {
             return Array.from(this.filtersField.querySelectorAll(':checked')).map(function (value) {
