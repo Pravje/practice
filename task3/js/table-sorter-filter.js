@@ -12,7 +12,6 @@
         this.nextValueId = 0;
         this.bindSorters();
         this.bindFilter('Type');
-        this.showResult();
     };
     window.TableSorterFilter.prototype = {
         showResult: function () {
@@ -24,7 +23,6 @@
                     cells.push(item[key]);
                 }
                 newBody.appendChild(createRow(cells));
-                cells = [];
             });
             this.table.replaceChild(newBody, this.table.querySelector('tbody'));
         },
@@ -83,7 +81,6 @@
             return filterValues;
         },
         createFilterItems: function (filterName) {
-            var headerId = this.originalData.headers.indexOf(filterName);
             var items = [];
             this.getFilterValues(filterName).forEach(function (value) {
                 items.push(getCheckbox(filterName, value))
@@ -136,11 +133,9 @@
                         shownRowsIdSet.add(index);
                 }
             });
-
-            var shownRowsId = Array.from(shownRowsIdSet);
-            for (var i = 0; i < shownRowsId.length; i++) {
-                this.filteredData.push(this.testData[shownRowsId[i]])
-            }
+            shownRowsIdSet.forEach(function (id) {
+                mainContext.filteredData.push(mainContext.testData[id])
+            });
         },
         getEnabledFilters: function (filterName) {
             return Array.from(this.filtersField.querySelectorAll('[name=' + filterName + ']:checked')).map(function (value) {
