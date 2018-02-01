@@ -112,9 +112,7 @@
             }.bind(this));
         },
         filterData: function (filterName) {
-            this.filteredData = this.testData.filter(function (item) {
-                return this.enabledFilters.indexOf(item[filterName]) >= 0
-            }.bind(this)) || [];
+            this.filteredData = this.testData.filter( row => {return this.enabledFilters.indexOf(row[filterName]) >= 0 }) || [];
         },
         getEnabledFilters: function () {
             return Array.from(this.filtersField.querySelectorAll(':checked')).map(function (value) {
