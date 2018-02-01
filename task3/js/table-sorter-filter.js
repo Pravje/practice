@@ -112,18 +112,9 @@
             }.bind(this));
         },
         filterData: function (filterName) {
-            var shownRowsIdSet = new Set();
-            this.filteredData = [];
-            var mainContext = this;
-            this.testData.forEach(function (row, index) {
-                for (var i = 0; i < mainContext.enabledFilters.length; i++) {
-                    if (row[filterName].localeCompare(mainContext.enabledFilters[i]) === 0)
-                        shownRowsIdSet.add(index);
-                }
-            });
-            shownRowsIdSet.forEach(function (id) {
-                mainContext.filteredData.push(mainContext.testData[id])
-            });
+            this.filteredData = this.testData.filter(function (item) {
+                return this.enabledFilters.indexOf(item[filterName]) >= 0
+            }.bind(this)) || [];
         },
         getEnabledFilters: function () {
             return Array.from(this.filtersField.querySelectorAll(':checked')).map(function (value) {
